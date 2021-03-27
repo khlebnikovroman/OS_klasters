@@ -1,3 +1,5 @@
+from tabulate import tabulate
+
 def findNextGoodKlaster(currentKlaster, klasters):
     for i in range(currentKlaster,len(klasters)):
         if klasters[currentKlaster+1]=='bad':
@@ -35,11 +37,6 @@ fileSizes= {}
 for i in normalizedFiles:
     fileSizes[i]=len(normalizedFiles[i])
 
-
-
-
-
-
 currentClaster=2
 for i in fileSizes:
     if currentClaster==len(goodClasters):
@@ -61,11 +58,27 @@ normalFiles = {}
 currentClaster=2
 for i in normalizedFiles:
     normalFiles[i]=[]
-    while goodClasters[currentClaster]!='eof':
-        if goodClasters[currentClaster]!='bad':
+    while 1:
+        if goodClasters[currentClaster]!='eof':
+            if goodClasters[currentClaster]!="bad":
+                normalFiles[i].append(currentClaster)
+            currentClaster += 1
+        else:
             normalFiles[i].append(currentClaster)
+            currentClaster+=1
+            break
 
-print(goodClasters)
+indexes = list(range(len(goodClasters)))
+
+print("Начальные данные:")
+print(files)
+print(normalizedFiles)
+print(tabulate([indexes,klasters]))
+
+print("Переработанные данные")
+print(normalFiles)
+print()
+print(tabulate([indexes,goodClasters]))
 
 
 
